@@ -2,8 +2,8 @@
 @host = localhost
 @port = 3000
 @baseUrl = http://{{host}}:{{port}}
-
 @coffeesApiUrl = {{baseUrl}}/coffees
+@jsonContent = application/json
 
 ### Get all coffees Request - /
 GET {{coffeesApiUrl}} HTTP/1.1
@@ -11,3 +11,12 @@ GET {{coffeesApiUrl}} HTTP/1.1
 
 ### Get One Coffee
 GET {{coffeesApiUrl}}/id-xsdfs HTTP/1.1
+
+### Create a coffee entry
+POST {{coffeesApiUrl}} HTTP/1.1
+Content-Type: {{jsonContent}}
+
+{
+  "name": "Kenya Roasted Coffee",
+  "brand": "Buddy Brew"
+}
