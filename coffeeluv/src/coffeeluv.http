@@ -4,4 +4,4 @@
 @baseurl = http://{{host}}:{{port}}
 
 ### Get all coffees Request - /
-GET {{baseurl}} HTTP/1.1
+GET {{baseurl}}/coffees HTTP/1.1
