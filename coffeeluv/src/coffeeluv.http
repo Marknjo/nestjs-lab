@@ -1,7 +1,13 @@
 # Environment Variables
 @host = localhost
 @port = 3000
-@baseurl = http://{{host}}:{{port}}
+@baseUrl = http://{{host}}:{{port}}
+
+@coffeesApiUrl = {{baseUrl}}/coffees
 
 ### Get all coffees Request - /
-GET {{baseurl}}/coffees HTTP/1.1
+GET {{coffeesApiUrl}} HTTP/1.1
+
+
+### Get One Coffee
+GET {{coffeesApiUrl}}/id-xsdfs HTTP/1.1
