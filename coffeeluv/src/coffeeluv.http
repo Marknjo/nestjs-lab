@@ -20,3 +20,11 @@ Content-Type: {{jsonContent}}
   "name": "Kenya Roasted Coffee",
   "brand": "Buddy Brew"
 }
+
+### Update a coffee given coffee id
+PATCH {{coffeesApiUrl}}/2 HTTP/1.1
+Content-Type: {{jsonContent}}
+
+{
+  "name": "Updated Kenya Roasted Coffee"
+}

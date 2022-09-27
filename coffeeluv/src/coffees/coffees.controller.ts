@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -15,5 +15,10 @@ export class CoffeesController {
   @Post()
   create(@Body() body) {
     return body;
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body) {
+    return `This action updates coffee #[${id}] with ${body.name}`;
   }
 }
