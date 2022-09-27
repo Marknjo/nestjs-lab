@@ -28,3 +28,6 @@ Content-Type: {{jsonContent}}
 {
   "name": "Updated Kenya Roasted Coffee"
 }
+
+### Delete a Coffee Entry Given an Id
+DELETE {{coffeesApiUrl}}/2 HTTP/1.1
