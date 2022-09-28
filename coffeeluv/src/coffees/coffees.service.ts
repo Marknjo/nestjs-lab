@@ -43,4 +43,16 @@ export class CoffeesService {
 
     return this.store[coffeeIndex];
   }
+
+  remove(id: string) {
+    const coffeeIndex = this.store.findIndex((coffee) => coffee.id === id);
+
+    if (coffeeIndex < 0) {
+      throw new NotFoundException(
+        `Could not delete coffee with the id of ${id}`,
+      );
+    }
+
+    this.store.splice(coffeeIndex, 1);
+  }
 }
