@@ -13,7 +13,7 @@ GET {{coffeesApiUrl}} HTTP/1.1
 GET {{coffeesApiUrl}}/?offset=2&limit=10 HTTP/1.1
 
 ### Get One Coffee
-GET {{coffeesApiUrl}}/id-xsdfs HTTP/1.1
+GET {{coffeesApiUrl}}/1 HTTP/1.1
 
 ### Create a coffee entry
 POST {{coffeesApiUrl}} HTTP/1.1
