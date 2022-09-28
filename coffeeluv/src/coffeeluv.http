@@ -20,8 +20,10 @@ POST {{coffeesApiUrl}} HTTP/1.1
 Content-Type: {{jsonContent}}
 
 {
+  "id": "2",
   "name": "Kenya Roasted Coffee",
-  "brand": "Buddy Brew"
+  "brand": "Buddy Brew",
+  "flavors": ["Highland Vanilla", "Lowland Butter"]
 }
 
 ### Update a coffee given coffee id

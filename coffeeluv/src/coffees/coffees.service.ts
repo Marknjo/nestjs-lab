@@ -26,4 +26,8 @@ export class CoffeesService {
 
     return foundCoffee;
   }
+
+  create(createCoffeeDto: any) {
+    this.store.push(createCoffeeDto);
+  }
 }
