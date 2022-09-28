@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { randomBytes } from 'crypto';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
@@ -30,7 +35,14 @@ export class CoffeesService {
   }
 
   create(createCoffeeDto: CreateCoffeeDto) {
-    this.store.push(createCoffeeDto);
+    const id = randomBytes(8).toString('hex');
+
+    const createDataWithId = {
+      ...createCoffeeDto,
+      id,
+    };
+
+    this.store.push(createDataWithId);
   }
 
   update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
