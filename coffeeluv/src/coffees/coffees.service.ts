@@ -30,4 +30,17 @@ export class CoffeesService {
   create(createCoffeeDto: any) {
     this.store.push(createCoffeeDto);
   }
+
+  update(id: string, updateCoffeeDto: any) {
+    const foundCoffee = this.findOne(id);
+
+    const coffeeIndex = this.store.findIndex((coffee) => coffee.id === id);
+
+    this.store[coffeeIndex] = {
+      ...foundCoffee,
+      ...updateCoffeeDto,
+    };
+
+    return this.store[coffeeIndex];
+  }
 }
