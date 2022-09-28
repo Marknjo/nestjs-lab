@@ -35,6 +35,16 @@ export class CoffeesService {
   }
 
   create(createCoffeeDto: CreateCoffeeDto) {
+    const isNameUnique = this.store.find(
+      (coffee) => coffee.name === createCoffeeDto.name,
+    );
+
+    if (isNameUnique) {
+      throw new BadRequestException(
+        `A coffee with the name '${createCoffeeDto.name}' already in the store.`,
+      );
+    }
+
     const id = randomBytes(8).toString('hex');
 
     const createDataWithId = {
@@ -43,6 +53,8 @@ export class CoffeesService {
     };
 
     this.store.push(createDataWithId);
+
+    return createDataWithId;
   }
 
   update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
