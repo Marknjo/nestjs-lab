@@ -13,6 +13,8 @@ specifiers:
   '@types/supertest': ^2.0.11
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
+  class-transformer: ^0.5.1
+  class-validator: ^0.13.2
   eslint: ^8.0.1
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^4.0.0
@@ -30,9 +32,11 @@ specifiers:
   typescript: ^4.7.4
 
 dependencies:
-  '@nestjs/common': 9.1.2_yzt46al3aifnexifjjdb4dxxja
+  '@nestjs/common': 9.1.2_x6yqyveuahcdef4z4mxykmuv6a
   '@nestjs/core': 9.1.2_zzb753o6ov5n3wrhompfrkwa7u
   '@nestjs/platform-express': 9.1.2_umdjpi6fqr4wvw73r3mhthbyle
+  class-transformer: 0.5.1
+  class-validator: 0.13.2
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.5.7
@@ -54,8 +58,8 @@ devDependencies:
   prettier: 2.7.1
   source-map-support: 0.5.21
   supertest: 6.2.4
-  ts-jest: 28.0.8_oavexkd2euoi6eueqpz7c42uqe
-  ts-loader: 9.4.1_typescript@4.8.3
+  ts-jest: 28.0.8_h2pprpixdl6zduvcswzp5mp6o4
+  ts-loader: 9.4.1_kb3egcnme7w23lfa5xodfjfhge
   ts-node: 10.9.1_k3mpxffmav3otnvbt727n2weai
   tsconfig-paths: 4.1.0
   typescript: 4.8.3
@@ -80,7 +84,7 @@ packages:
         optional: true
     dependencies:
       ajv: 8.11.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.11.0
       jsonc-parser: 3.1.0
       rxjs: 6.6.7
       source-map: 0.7.4
@@ -96,7 +100,7 @@ packages:
         optional: true
     dependencies:
       ajv: 8.11.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.11.0
       chokidar: 3.5.3
       jsonc-parser: 3.1.0
       rxjs: 6.6.7
@@ -113,7 +117,7 @@ packages:
         optional: true
     dependencies:
       ajv: 8.11.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.11.0
       chokidar: 3.5.3
       jsonc-parser: 3.1.0
       rxjs: 6.6.7
@@ -867,7 +871,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/9.1.2_yzt46al3aifnexifjjdb4dxxja:
+  /@nestjs/common/9.1.2_x6yqyveuahcdef4z4mxykmuv6a:
     resolution: {integrity: sha512-zpF4DaLvvsCVqfrf9LJfSeYP+SBCWCFbOCTOmEZ5Gs6Hralia6s2kS+CSicJKx8IpnyC6ZReuqdTbjcPl4yunA==}
     peerDependencies:
       cache-manager: '*'
@@ -883,6 +887,8 @@ packages:
       class-validator:
         optional: true
     dependencies:
+      class-transformer: 0.5.1
+      class-validator: 0.13.2
       iterare: 1.2.1
       reflect-metadata: 0.1.13
       rxjs: 7.5.7
@@ -907,7 +913,7 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 9.1.2_yzt46al3aifnexifjjdb4dxxja
+      '@nestjs/common': 9.1.2_x6yqyveuahcdef4z4mxykmuv6a
       '@nestjs/platform-express': 9.1.2_umdjpi6fqr4wvw73r3mhthbyle
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
@@ -927,7 +933,7 @@ packages:
       '@nestjs/common': ^9.0.0
       '@nestjs/core': ^9.0.0
     dependencies:
-      '@nestjs/common': 9.1.2_yzt46al3aifnexifjjdb4dxxja
+      '@nestjs/common': 9.1.2_x6yqyveuahcdef4z4mxykmuv6a
       '@nestjs/core': 9.1.2_zzb753o6ov5n3wrhompfrkwa7u
       body-parser: 1.20.0
       cors: 2.8.5
@@ -980,7 +986,7 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 9.1.2_yzt46al3aifnexifjjdb4dxxja
+      '@nestjs/common': 9.1.2_x6yqyveuahcdef4z4mxykmuv6a
       '@nestjs/core': 9.1.2_zzb753o6ov5n3wrhompfrkwa7u
       '@nestjs/platform-express': 9.1.2_umdjpi6fqr4wvw73r3mhthbyle
       tslib: 2.4.0
@@ -1496,8 +1502,10 @@ packages:
     hasBin: true
     dev: true
 
-  /ajv-formats/2.1.1:
+  /ajv-formats/2.1.1_ajv@8.11.0:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -1860,6 +1868,15 @@ packages:
   /cjs-module-lexer/1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
     dev: true
+
+  /class-transformer/0.5.1:
+    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
+
+  /class-validator/0.13.2:
+    resolution: {integrity: sha512-yBUcQy07FPlGzUjoLuUfIOXzgynnQPPruyK1Ge2B74k9ROwnle1E+NxLWnUv5OLU8hA/qL5leAE9XnXq3byaBw==}
+    dependencies:
+      libphonenumber-js: 1.10.13
+      validator: 13.7.0
 
   /cli-cursor/3.1.0:
     resolution: {integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==}
@@ -3476,6 +3493,9 @@ packages:
       type-check: 0.4.0
     dev: true
 
+  /libphonenumber-js/1.10.13:
+    resolution: {integrity: sha512-b74iyWmwb4GprAUPjPkJ11GTC7KX4Pd3onpJfKxYyY8y9Rbb4ERY47LvCMEDM09WD3thiLDMXtkfDK/AX+zT7Q==}
+
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
@@ -4497,7 +4517,7 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/28.0.8_oavexkd2euoi6eueqpz7c42uqe:
+  /ts-jest/28.0.8_h2pprpixdl6zduvcswzp5mp6o4:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -4518,6 +4538,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
+      '@babel/core': 7.19.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 28.1.3_uo4il2aklsrxuk4ro37qmnu2ge
@@ -4530,7 +4551,7 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /ts-loader/9.4.1_typescript@4.8.3:
+  /ts-loader/9.4.1_kb3egcnme7w23lfa5xodfjfhge:
     resolution: {integrity: sha512-384TYAqGs70rn9F0VBnh6BPTfhga7yFNdC5gXbQpDrBj9/KsT4iRkGqKXhziofHOlE2j6YEaiTYVGKKvPhGWvw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -4542,6 +4563,7 @@ packages:
       micromatch: 4.0.5
       semver: 7.3.7
       typescript: 4.8.3
+      webpack: 5.74.0
     dev: true
 
   /ts-node/10.9.1_k3mpxffmav3otnvbt727n2weai:
@@ -4697,6 +4719,10 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.4
       convert-source-map: 1.8.0
     dev: true
+
+  /validator/13.7.0:
+    resolution: {integrity: sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==}
+    engines: {node: '>= 0.10'}
 
   /vary/1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
