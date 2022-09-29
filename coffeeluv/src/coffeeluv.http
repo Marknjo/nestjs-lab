@@ -22,7 +22,8 @@ Content-Type: {{jsonContent}}
 {
   "name": "Kenya Roasted Coffee",
   "brand": "Buddy Brew",
-  "flavors": ["Highland Vanilla", "Lowland Butter"]
+  "flavors": ["Highland Vanilla", "Lowland Butter"],
+  "isEnabled": true
 }
 
 ### Update a coffee given coffee id
