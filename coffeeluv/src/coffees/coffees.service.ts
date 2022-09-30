@@ -3,82 +3,91 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes } from 'crypto';
+import { Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { Coffees } from './entities/coffees-entity';
 
 @Injectable()
 export class CoffeesService {
-  private store: Array<{ [key: string]: any }> = [
-    {
-      id: '1',
-      name: 'Shipwreck Roast',
-      brand: 'Buddy Brew',
-      flavors: ['chocolate', 'vanilla'],
-    },
-  ];
+  constructor(
+    @InjectRepository(Coffees)
+    private readonly coffeeRepository: Repository<Coffees>,
+  ) {}
 
   findAll(limit?: number, offset?: number) {
     console.log({ limit, offset });
 
-    return this.store;
+    return this.coffeeRepository.find();
   }
 
   findOne(id: string) {
-    const foundCoffee = this.store.find((coffee) => coffee.id === id);
+    // const foundCoffee = this.coffeeRepository.find(
+    //   (coffee) => coffee.id === id,
+    // );
 
-    if (!foundCoffee) {
-      throw new NotFoundException(`Could not find coffee with the id of ${id}`);
-    }
+    // if (!foundCoffee) {
+    //   throw new NotFoundException(`Could not find coffee with the id of ${id}`);
+    // }
 
-    return foundCoffee;
+    // return foundCoffee;
+    return 'waiting refactor';
   }
 
   create(createCoffeeDto: CreateCoffeeDto) {
-    const isNameUnique = this.store.find(
-      (coffee) => coffee.name === createCoffeeDto.name,
-    );
+    // const isNameUnique = this.coffeeRepository.find(
+    //   (coffee) => coffee.name === createCoffeeDto.name,
+    // );
 
-    if (isNameUnique) {
-      throw new BadRequestException(
-        `A coffee with the name '${createCoffeeDto.name}' already in the store.`,
-      );
-    }
+    // if (isNameUnique) {
+    //   throw new BadRequestException(
+    //     `A coffee with the name '${createCoffeeDto.name}' already in the coffeeRepository.`,
+    //   );
+    // }
 
-    const id = randomBytes(8).toString('hex');
+    // const id = randomBytes(8).toString('hex');
 
-    const createDataWithId = {
-      ...createCoffeeDto,
-      id,
-    };
+    // const createDataWithId = {
+    //   ...createCoffeeDto,
+    //   id,
+    // };
 
-    this.store.push(createDataWithId);
+    // this.coffeeRepository.push(createDataWithId);
 
-    return createDataWithId;
+    // return createDataWithId;
+    return 'waiting refactor';
   }
 
   update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
-    const foundCoffee = this.findOne(id);
+    // const foundCoffee = this.findOne(id);
 
-    const coffeeIndex = this.store.findIndex((coffee) => coffee.id === id);
+    // const coffeeIndex = this.coffeeRepository.findIndex(
+    //   (coffee) => coffee.id === id,
+    // );
 
-    this.store[coffeeIndex] = {
-      ...foundCoffee,
-      ...updateCoffeeDto,
-    };
+    // this.coffeeRepository[coffeeIndex] = {
+    //   ...foundCoffee,
+    //   ...updateCoffeeDto,
+    // };
 
-    return this.store[coffeeIndex];
+    // return this.coffeeRepository[coffeeIndex];
+    return 'waiting refactor';
   }
 
   remove(id: string) {
-    const coffeeIndex = this.store.findIndex((coffee) => coffee.id === id);
+    // const coffeeIndex = this.coffeeRepository.findIndex(
+    //   (coffee) => coffee.id === id,
+    // );
 
-    if (coffeeIndex < 0) {
-      throw new NotFoundException(
-        `Could not delete coffee with the id of ${id}`,
-      );
-    }
+    // if (coffeeIndex < 0) {
+    //   throw new NotFoundException(
+    //     `Could not delete coffee with the id of ${id}`,
+    //   );
+    // }
 
-    this.store.splice(coffeeIndex, 1);
+    // this.coffeeRepository.splice(coffeeIndex, 1);
+    return 'waiting refactor';
   }
 }
