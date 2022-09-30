@@ -2,19 +2,19 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { randomBytes } from 'crypto';
-import { CreateCoffeeDto } from './dto/create-coffee.dto';
-import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+} from "@nestjs/common";
+import { randomBytes } from "crypto";
+import { CreateCoffeeDto } from "../../coffeeluv/src/coffees/dto/create-coffee.dto";
+import { UpdateCoffeeDto } from "../../coffeeluv/src/coffees/dto/update-coffee.dto";
 
 @Injectable()
 export class CoffeesService {
   private store: Array<{ [key: string]: any }> = [
     {
-      id: '1',
-      name: 'Shipwreck Roast',
-      brand: 'Buddy Brew',
-      flavors: ['chocolate', 'vanilla'],
+      id: "1",
+      name: "Shipwreck Roast",
+      brand: "Buddy Brew",
+      flavors: ["chocolate", "vanilla"],
     },
   ];
 
@@ -36,16 +36,16 @@ export class CoffeesService {
 
   create(createCoffeeDto: CreateCoffeeDto) {
     const isNameUnique = this.store.find(
-      (coffee) => coffee.name === createCoffeeDto.name,
+      (coffee) => coffee.name === createCoffeeDto.name
     );
 
     if (isNameUnique) {
       throw new BadRequestException(
-        `A coffee with the name '${createCoffeeDto.name}' already in the store.`,
+        `A coffee with the name '${createCoffeeDto.name}' already in the store.`
       );
     }
 
-    const id = randomBytes(8).toString('hex');
+    const id = randomBytes(8).toString("hex");
 
     const createDataWithId = {
       ...createCoffeeDto,
@@ -75,7 +75,7 @@ export class CoffeesService {
 
     if (coffeeIndex < 0) {
       throw new NotFoundException(
-        `Could not delete coffee with the id of ${id}`,
+        `Could not delete coffee with the id of ${id}`
       );
     }
 
