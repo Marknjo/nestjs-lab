@@ -19,6 +19,12 @@ export class CoffeesService {
     private readonly coffeeRepository: Repository<Coffees>,
   ) {}
 
+  private checkIdFormat(id: string) {
+    if (!isUUID(id)) {
+      throw new ForbiddenException('Invalid id format');
+    }
+  }
+
   findAll(limit?: number, offset?: number) {
     console.log({ limit, offset });
 
@@ -26,6 +32,8 @@ export class CoffeesService {
   }
 
   async findOne(id: string) {
+    this.checkIdFormat(id);
+
     const foundCoffee = await this.coffeeRepository.findOneBy({ id });
 
     if (!foundCoffee) {
