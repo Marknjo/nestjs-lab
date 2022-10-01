@@ -26,7 +26,7 @@ Content-Type: {{jsonContent}}
 }
 
 ### Update a coffee given coffee id
-PATCH {{coffeesApiUrl}}/0872e0d17b17b9c9 HTTP/1.1
+PATCH {{coffeesApiUrl}}/48078c68-27cd-4a74-95e2-c823f7327417 HTTP/1.1
 Content-Type: {{jsonContent}}
 
 {

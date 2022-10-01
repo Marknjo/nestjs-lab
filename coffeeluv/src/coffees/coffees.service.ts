@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isUUID } from 'class-validator';
-import { randomBytes } from 'crypto';
 import { Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -61,20 +60,19 @@ export class CoffeesService {
     return this.coffeeRepository.save(createdCoffee);
   }
 
-  update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
-    // const foundCoffee = this.findOne(id);
+  async update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
+    this.checkIdFormat(id);
 
-    // const coffeeIndex = this.coffeeRepository.findIndex(
-    //   (coffee) => coffee.id === id,
-    // );
+    const updateCoffee = await this.coffeeRepository.preload({
+      id,
+      ...updateCoffeeDto,
+    });
 
-    // this.coffeeRepository[coffeeIndex] = {
-    //   ...foundCoffee,
-    //   ...updateCoffeeDto,
-    // };
+    if (!updateCoffee) {
+      throw new NotFoundException(`Could not update coffee with ID: #${id}`);
+    }
 
-    // return this.coffeeRepository[coffeeIndex];
-    return 'waiting refactor';
+    return this.coffeeRepository.save(updateCoffee);
   }
 
   async remove(id: string) {
