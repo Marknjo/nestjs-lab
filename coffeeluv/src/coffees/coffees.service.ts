@@ -77,18 +77,9 @@ export class CoffeesService {
     return 'waiting refactor';
   }
 
-  remove(id: string) {
-    // const coffeeIndex = this.coffeeRepository.findIndex(
-    //   (coffee) => coffee.id === id,
-    // );
+  async remove(id: string) {
+    const coffee = await this.findOne(id);
 
-    // if (coffeeIndex < 0) {
-    //   throw new NotFoundException(
-    //     `Could not delete coffee with the id of ${id}`,
-    //   );
-    // }
-
-    // this.coffeeRepository.splice(coffeeIndex, 1);
-    return 'waiting refactor';
+    this.coffeeRepository.delete(id);
   }
 }

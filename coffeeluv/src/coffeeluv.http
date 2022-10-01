@@ -34,4 +34,4 @@ Content-Type: {{jsonContent}}
 }
 
 ### Delete a Coffee Entry Given an Id
-DELETE {{coffeesApiUrl}}/2 HTTP/1.1
+DELETE {{coffeesApiUrl}}/dd105cb5-e878-42ab-9f55-b9eefc81a707 HTTP/1.1
