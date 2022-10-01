@@ -1,9 +1,11 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { isUUID } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
@@ -23,17 +25,14 @@ export class CoffeesService {
     return this.coffeeRepository.find();
   }
 
-  findOne(id: string) {
-    // const foundCoffee = this.coffeeRepository.find(
-    //   (coffee) => coffee.id === id,
-    // );
+  async findOne(id: string) {
+    const foundCoffee = await this.coffeeRepository.findOneBy({ id });
 
-    // if (!foundCoffee) {
-    //   throw new NotFoundException(`Could not find coffee with the id of ${id}`);
-    // }
+    if (!foundCoffee) {
+      throw new NotFoundException(`Could not find coffee with the id of ${id}`);
+    }
 
-    // return foundCoffee;
-    return 'waiting refactor';
+    return foundCoffee;
   }
 
   create(createCoffeeDto: CreateCoffeeDto) {
