@@ -43,28 +43,22 @@ export class CoffeesService {
     return foundCoffee;
   }
 
-  create(createCoffeeDto: CreateCoffeeDto) {
-    // const isNameUnique = this.coffeeRepository.find(
-    //   (coffee) => coffee.name === createCoffeeDto.name,
-    // );
+  async create(createCoffeeDto: CreateCoffeeDto) {
+    const isNotUnique = await this.coffeeRepository.findOne({
+      where: {
+        name: createCoffeeDto.name,
+      },
+    });
 
-    // if (isNameUnique) {
-    //   throw new BadRequestException(
-    //     `A coffee with the name '${createCoffeeDto.name}' already in the coffeeRepository.`,
-    //   );
-    // }
+    if (isNotUnique) {
+      throw new BadRequestException(
+        `A coffee with the name '${createCoffeeDto.name}' already in the coffeeRepository.`,
+      );
+    }
 
-    // const id = randomBytes(8).toString('hex');
+    const createdCoffee = this.coffeeRepository.create(createCoffeeDto);
 
-    // const createDataWithId = {
-    //   ...createCoffeeDto,
-    //   id,
-    // };
-
-    // this.coffeeRepository.push(createDataWithId);
-
-    // return createDataWithId;
-    return 'waiting refactor';
+    return this.coffeeRepository.save(createdCoffee);
   }
 
   update(id: string, updateCoffeeDto: UpdateCoffeeDto) {

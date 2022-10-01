@@ -12,5 +12,5 @@ export class Coffees {
   brand: string;
 
   @Column('json', { nullable: true })
-  flavor: Array<string>;
+  flavors: Array<string>;
 }
