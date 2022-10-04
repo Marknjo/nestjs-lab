@@ -9,13 +9,16 @@ import { isUUID } from 'class-validator';
 import { Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
-import { Coffees } from './entities/coffees-entity';
+import { Coffee } from './entities/coffee-entity';
+import { Flavor } from './entities/flavor-entity';
 
 @Injectable()
 export class CoffeesService {
   constructor(
-    @InjectRepository(Coffees)
-    private readonly coffeeRepository: Repository<Coffees>,
+    @InjectRepository(Coffee)
+    private readonly coffeeRepository: Repository<Coffee>,
+    @InjectRepository(Flavor)
+    private readonly flavorRepository: Repository<Flavor>,
   ) {}
 
   private checkIdFormat(id: string) {
@@ -60,7 +63,14 @@ export class CoffeesService {
       );
     }
 
-    const createdCoffee = this.coffeeRepository.create(createCoffeeDto);
+    const flavors = await Promise.all(
+      createCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name)),
+    );
+
+    const createdCoffee = this.coffeeRepository.create({
+      ...createCoffeeDto,
+      flavors,
+    });
 
     return this.coffeeRepository.save(createdCoffee);
   }
@@ -68,9 +78,16 @@ export class CoffeesService {
   async update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
     this.checkIdFormat(id);
 
+    const flavors =
+      updateCoffeeDto.flavors &&
+      (await Promise.all(
+        updateCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name)),
+      ));
+
     const updateCoffee = await this.coffeeRepository.preload({
       id,
       ...updateCoffeeDto,
+      flavors,
     });
 
     if (!updateCoffee) {
@@ -84,5 +101,15 @@ export class CoffeesService {
     const coffee = await this.findOne(id);
 
     this.coffeeRepository.delete(id);
+  }
+
+  private async preloadFlavorByName(name: string): Promise<Flavor> {
+    const existingFlavor = await this.flavorRepository.findOneBy({ name });
+
+    if (existingFlavor) {
+      return existingFlavor;
+    }
+
+    return this.flavorRepository.create({ name });
   }
 }
