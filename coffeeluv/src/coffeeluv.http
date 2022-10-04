@@ -10,7 +10,7 @@ GET {{coffeesApiUrl}} HTTP/1.1
 
 
 ### Get Paginated coffees Request/?offset=&limit=
-GET {{coffeesApiUrl}}/?offset=2&limit=10 HTTP/1.1
+GET {{coffeesApiUrl}}/?offset=0&limit=10 HTTP/1.1
 
 ### Get One Coffee
 GET {{coffeesApiUrl}}/11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000 HTTP/1.1

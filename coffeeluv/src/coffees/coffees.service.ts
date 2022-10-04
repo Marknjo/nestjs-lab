@@ -28,9 +28,9 @@ export class CoffeesService {
   }
 
   findAll(limit?: number, offset?: number) {
-    console.log({ limit, offset });
-
     return this.coffeeRepository.find({
+      ...(offset ? { skip: offset } : {}),
+      ...(limit ? { take: limit } : {}),
       relations: ['flavors'],
     });
   }
