@@ -27,13 +27,18 @@ export class CoffeesService {
   findAll(limit?: number, offset?: number) {
     console.log({ limit, offset });
 
-    return this.coffeeRepository.find();
+    return this.coffeeRepository.find({
+      relations: ['flavors'],
+    });
   }
 
   async findOne(id: string) {
     this.checkIdFormat(id);
 
-    const foundCoffee = await this.coffeeRepository.findOneBy({ id });
+    const foundCoffee = await this.coffeeRepository.findOne({
+      where: { id },
+      relations: ['flavors'],
+    });
 
     if (!foundCoffee) {
       throw new NotFoundException(`Could not find coffee with the id of ${id}`);
