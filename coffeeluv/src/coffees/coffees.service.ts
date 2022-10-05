@@ -21,12 +21,6 @@ export class CoffeesService {
     private readonly flavorRepository: Repository<Flavor>,
   ) {}
 
-  private checkIdFormat(id: string) {
-    if (!isUUID(id)) {
-      throw new ForbiddenException('Invalid id format');
-    }
-  }
-
   findAll(limit?: number, offset?: number) {
     return this.coffeeRepository.find({
       ...(offset ? { skip: offset } : {}),
@@ -101,6 +95,12 @@ export class CoffeesService {
     const coffee = await this.findOne(id);
 
     this.coffeeRepository.delete(id);
+  }
+
+  private checkIdFormat(id: string) {
+    if (!isUUID(id)) {
+      throw new ForbiddenException('Invalid id format');
+    }
   }
 
   private async preloadFlavorByName(name: string): Promise<Flavor> {
