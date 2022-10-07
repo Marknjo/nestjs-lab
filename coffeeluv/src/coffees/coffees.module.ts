@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Injectable, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
@@ -25,6 +25,13 @@ class CustomProdConfigService {
   }
 }
 
+@Injectable()
+class CoffeeBrandsFactory {
+  create() {
+    return ['buddy brew', 'nescafe'];
+  }
+}
+
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
   controllers: [CoffeesController],
@@ -35,7 +42,15 @@ class CustomProdConfigService {
     //   useClass: MockCoffeeService, //-> But all original CoffeeService method implementations are lost
     // },
     CoffeesService,
-    { provide: COFFEE_BRANDS, useValue: ['buddy brew', 'nescafe'] },
+    CoffeeBrandsFactory,
+    // { provide: COFFEE_BRANDS, useValue: ['buddy brew', 'nescafe'] }, // Without factories
+    {
+      provide: COFFEE_BRANDS,
+      useFactory: (brandsFactory: CoffeeBrandsFactory) => {
+        return brandsFactory.create();
+      },
+      inject: [CoffeeBrandsFactory],
+    },
     {
       provide: CustomConfigService,
       useClass:
