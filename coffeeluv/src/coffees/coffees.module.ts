@@ -1,5 +1,6 @@
 import { Injectable, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
 import { Coffee } from './entities/coffee-entity';
@@ -43,13 +44,27 @@ class CoffeeBrandsFactory {
     // },
     CoffeesService,
     CoffeeBrandsFactory,
-    // { provide: COFFEE_BRANDS, useValue: ['buddy brew', 'nescafe'] }, // Without factories
+    // // { provide: COFFEE_BRANDS, useValue: ['buddy brew', 'nescafe'] }, // Without factories
+    // {
+    //   provide: COFFEE_BRANDS,
+    //   useFactory: (brandsFactory: CoffeeBrandsFactory) => {
+    //     return brandsFactory.create();
+    //   },
+    //   inject: [CoffeeBrandsFactory],
+    // },
     {
       provide: COFFEE_BRANDS,
-      useFactory: (brandsFactory: CoffeeBrandsFactory) => {
-        return brandsFactory.create();
+      useFactory: (
+        brandsFactory: CoffeeBrandsFactory,
+        dataSource: DataSource,
+      ): Promise<string[]> => {
+        const brands = brandsFactory.create();
+        return new Promise((resolve, reject) => {
+          //console.log({ entityMetas: dataSource.entityMetadatas });
+          resolve(brands);
+        });
       },
-      inject: [CoffeeBrandsFactory],
+      inject: [CoffeeBrandsFactory, DataSource], // Order of arrangement matters with injection
     },
     {
       provide: CustomConfigService,
