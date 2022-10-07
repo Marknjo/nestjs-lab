@@ -4,6 +4,7 @@ import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
 import { Coffee } from './entities/coffee-entity';
 import { Flavor } from './entities/flavor-entity';
+import { COFFEE_BRANDS } from './utils/coffee-constants';
 
 //class MockCoffeeService {}
 
@@ -17,6 +18,7 @@ import { Flavor } from './entities/flavor-entity';
     //   useClass: MockCoffeeService, //-> But all original CoffeeService method implementations are lost
     // },
     CoffeesService,
+    { provide: COFFEE_BRANDS, useValue: ['buddy brew', 'nescafe'] },
   ],
   exports: [CoffeesService],
 })
