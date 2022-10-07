@@ -3,10 +3,14 @@
 @port = 3000
 @baseUrl = http://{{host}}:{{port}}
 @coffeesApiUrl = {{baseUrl}}/coffees
+@coffeeRatingURL = {{baseUrl}}/coffee-rating
 @jsonContent = application/json
 
 ### Get all coffees Request - /
 GET {{coffeesApiUrl}} HTTP/1.1
+
+### Get all coffees via coffees rating module
+GET {{coffeeRatingURL}} HTTP/1.1
 
 
 ### Get Paginated coffees Request/?offset=&limit=
