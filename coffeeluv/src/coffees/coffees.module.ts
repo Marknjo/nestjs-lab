@@ -7,6 +7,23 @@ import { Flavor } from './entities/flavor-entity';
 import { COFFEE_BRANDS } from './utils/coffee-constants';
 
 //class MockCoffeeService {}
+class CustomConfigService {
+  constructor() {
+    console.log({ provider: 'class CustomConfigService ' });
+  }
+}
+
+class CustomDevConfigService {
+  constructor() {
+    console.log({ provider: 'class CustomDevConfigService' });
+  }
+}
+
+class CustomProdConfigService {
+  constructor() {
+    console.log({ provider: 'class CustomProdConfigService' });
+  }
+}
 
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
@@ -19,6 +36,13 @@ import { COFFEE_BRANDS } from './utils/coffee-constants';
     // },
     CoffeesService,
     { provide: COFFEE_BRANDS, useValue: ['buddy brew', 'nescafe'] },
+    {
+      provide: CustomConfigService,
+      useClass:
+        process.env.NODE_ENV === 'production'
+          ? CustomProdConfigService
+          : CustomDevConfigService,
+    },
   ],
   exports: [CoffeesService],
 })
