@@ -11,6 +11,7 @@ import {
   configDevOptions,
   configProdOptions,
 } from './common/config/configs-options';
+import { CofService } from './cof/cof.service';
 
 @Module({
   imports: [
@@ -34,6 +35,6 @@ import {
     DatabaseModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CofService],
 })
 export class AppModule {}
