@@ -5,6 +5,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isUUID } from 'class-validator';
 import { Event } from 'src/events/entities/event-entity';
@@ -24,8 +25,12 @@ export class CoffeesService {
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+    private readonly configService: ConfigService,
   ) {
     console.log({ coffeeBrands });
+    console.table({ coffeeBrands });
+    const dbHost = configService.get<string>('DB_HOST');
+    console.table({ dbHost });
   }
 
   findAll(limit?: number, offset?: number) {
