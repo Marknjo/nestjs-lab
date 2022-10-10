@@ -38,11 +38,11 @@ export class CoffeesService {
     console.table({ coffeeBrands });
 
     /// Global environment variables
-    const dbHost = configService.get<string>('DB_HOST');
+    const dbHost = configService.get<string>('DB_HOST', 'localhost');
     console.table({ dbHost });
 
     /// Global custom configuration
-    const dbPort = configService.get('database.port', 'localhost');
+    const dbPort = configService.get('database.port');
     console.table({ dbPort });
 
     /// Module level configuration with partial registration

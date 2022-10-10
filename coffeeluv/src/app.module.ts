@@ -15,22 +15,25 @@ import appConfig from './config/app.config';
 
 @Module({
   imports: [
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: env.DB_HOST,
+        port: +env.DB_PORT,
+        username: env.DB_USER,
+        password: env.DB_PASS,
+        database: env.DB_NAME,
+        autoLoadEntities: true,
+
+        // Apply sync based on environment: skip production
+        ...(process.env.NODE_ENV === 'production' ? {} : { synchronize: true }),
+      }),
+    }),
     ConfigModule.forRoot({
       ...(env.NODE_ENV === 'production' ? configProdOptions : configDevOptions),
       load: [appConfig],
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: env.DB_HOST,
-      port: +env.DB_PORT,
-      username: env.DB_USER,
-      password: env.DB_PASS,
-      database: env.DB_NAME,
-      autoLoadEntities: true,
 
-      // Apply sync based on environment: skip production
-      ...(process.env.NODE_ENV === 'production' ? {} : { synchronize: true }),
-    }),
     CoffeesModule,
     CoffeeRatingModule,
     DatabaseModule,
