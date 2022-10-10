@@ -5,7 +5,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigService, ConfigType } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isUUID } from 'class-validator';
 // import { Event } from 'src/events/entities/event-entity';
@@ -15,6 +15,7 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee-entity';
 import { Flavor } from './entities/flavor-entity';
 import { COFFEE_BRANDS } from './utils/coffee-constants';
+import coffeesConfig from './config/coffees.config';
 
 @Injectable()
 export class CoffeesService {
@@ -27,16 +28,25 @@ export class CoffeesService {
     // private readonly eventRepository: Repository<Event>,
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+
+    @Inject(coffeesConfig.KEY)
+    private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+
     private readonly configService: ConfigService,
   ) {
     console.log({ coffeeBrands });
     console.table({ coffeeBrands });
-    // const dbHost = configService.get<string>('DB_HOST');
-    // console.table({ dbHost });
+
+    /// Global environment variables
+    const dbHost = configService.get<string>('DB_HOST');
+    console.table({ dbHost });
+
+    /// Global custom configuration
     const dbPort = configService.get('database.port', 'localhost');
     console.table({ dbPort });
 
-    console.log({ dbPort });
+    /// Module level configuration with partial registration
+    console.table(coffeesConfiguration);
   }
 
   findAll(limit?: number, offset?: number) {

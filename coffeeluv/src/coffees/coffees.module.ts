@@ -7,6 +7,7 @@ import { CoffeesService } from './coffees.service';
 import { Coffee } from './entities/coffee-entity';
 import { Flavor } from './entities/flavor-entity';
 import { COFFEE_BRANDS } from './utils/coffee-constants';
+import coffeesConfig from './config/coffees.config';
 
 //class MockCoffeeService {}
 class CustomConfigService {
@@ -35,7 +36,10 @@ class CoffeeBrandsFactory {
 }
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event]), ConfigModule],
+  imports: [
+    TypeOrmModule.forFeature([Coffee, Flavor, Event]),
+    ConfigModule.forFeature(coffeesConfig),
+  ],
   controllers: [CoffeesController],
   providers: [
     // {
