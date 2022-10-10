@@ -33,6 +33,10 @@ export class CoffeesService {
     console.table({ coffeeBrands });
     // const dbHost = configService.get<string>('DB_HOST');
     // console.table({ dbHost });
+    const dbPort = configService.get('database.port', 'localhost');
+    console.table({ dbPort });
+
+    console.log({ dbPort });
   }
 
   findAll(limit?: number, offset?: number) {

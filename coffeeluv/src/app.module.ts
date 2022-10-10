@@ -10,13 +10,14 @@ import { env } from 'process';
 import {
   configDevOptions,
   configProdOptions,
-} from './common/config/configs-options';
-import { CofService } from './cof/cof.service';
+} from './common/utils/configs-options';
+import appConfig from './config/app.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       ...(env.NODE_ENV === 'production' ? configProdOptions : configDevOptions),
+      load: [appConfig],
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -35,6 +36,6 @@ import { CofService } from './cof/cof.service';
     DatabaseModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CofService],
+  providers: [AppService],
 })
 export class AppModule {}
