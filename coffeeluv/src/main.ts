@@ -21,6 +21,7 @@ async function bootstrap() {
     .setTitle('IluvCoffee')
     .setDescription('Coffee application with Postgres database')
     .setVersion('0.0.1')
+    .addTag('coffees')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
