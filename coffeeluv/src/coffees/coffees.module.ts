@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
-import { Coffee } from './entities/coffee-entity';
-import { Flavor } from './entities/flavor-entity';
+import { Coffee } from './entities/coffee.entity';
+import { Flavor } from './entities/flavor.entity';
 import { COFFEE_BRANDS } from './utils/coffee-constants';
 import coffeesConfig from './config/coffees.config';
 
