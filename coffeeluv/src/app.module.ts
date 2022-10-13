@@ -11,6 +11,7 @@ import {
   configDevOptions,
   configProdOptions,
 } from './common/utils/configs-options';
+import { CommonModule } from './common/common.module';
 import appConfig from './config/app.config';
 
 @Module({
@@ -37,6 +38,7 @@ import appConfig from './config/app.config';
     CoffeesModule,
     CoffeeRatingModule,
     DatabaseModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

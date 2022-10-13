@@ -5,9 +5,10 @@
 @coffeesApiUrl = {{baseUrl}}/coffees
 @coffeeRatingURL = {{baseUrl}}/coffee-rating
 @jsonContent = application/json
-
+@apiKey = b518487c2d5234738bfe7bb5b6afc13bc5d5890a82b0edd234727f14063dc893
 ### Get all coffees Request - /
 GET {{coffeesApiUrl}} HTTP/1.1
+Authorization: Bearer {{nonProdToken}}
 
 ### Get all coffees via coffees rating module
 GET {{coffeeRatingURL}} HTTP/1.1
