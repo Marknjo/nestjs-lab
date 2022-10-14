@@ -8,17 +8,18 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { CoffeesService } from './coffees.service';
 import { CoffeesPaginationDto } from './dtos/coffees-pagination.dto';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeeService: CoffeesService) {}
+
   @Get()
   findAll(@Query() paginationOptions: CoffeesPaginationDto) {
-    console.log(paginationOptions);
-
-    return `Get all coffees Limit ${paginationOptions.limit} and collect ${paginationOptions.page}`;
+    return this.coffeeService.findAll(paginationOptions);
   }
 
   @Get(':id')
