@@ -5,6 +5,7 @@ import { randomBytes } from 'crypto';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ApiKeyGuard } from './common/guards/api-key.guard';
+import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
 
 async function bootstrap() {
@@ -23,7 +24,10 @@ async function bootstrap() {
   /// Add Exception filters
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  app.useGlobalInterceptors(new WrapResponseInterceptor());
+  app.useGlobalInterceptors(
+    new WrapResponseInterceptor(),
+    new TimeoutInterceptor(),
+  );
 
   /// Swagger Setup
   const options = new DocumentBuilder()
