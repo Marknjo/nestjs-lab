@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/common/decorators/public.decorator.decorator';
+import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -31,6 +32,11 @@ export class CoffeesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.coffeeService.findOne(id);
+  }
+
+  @Get('/get-number-id/:id')
+  fetchRandomId(@Param('id', ParseIntPipe) id: number) {
+    return `You provided id value: ${id}`;
   }
 
   @Post()
