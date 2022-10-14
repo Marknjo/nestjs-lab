@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
+import { Protocol } from 'src/common/decorators/protocol.decorator';
 import { Public } from 'src/common/decorators/public.decorator.decorator';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { CoffeesService } from './coffees.service';
@@ -23,7 +24,9 @@ export class CoffeesController {
   @Public()
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @Get()
-  async findAll(@Query() paginationQuery) {
+  async findAll(@Protocol() protocol: string, @Query() paginationQuery) {
+    console.log(protocol);
+
     // await new Promise((resolve) => setTimeout(resolve, 5000));
     const { limit, offset } = paginationQuery;
     return this.coffeeService.findAll(+limit, +offset);
