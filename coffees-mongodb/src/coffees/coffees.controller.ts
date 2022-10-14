@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CoffeesPaginationDto } from './dtos/coffees-pagination.dto';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
+import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -33,7 +34,7 @@ export class CoffeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updates: any) {
+  update(@Param('id') id: string, @Body() updates: UpdateCoffeeDto) {
     console.log(updates);
 
     return `Update coffee by id ${id} with ${updates}`;
