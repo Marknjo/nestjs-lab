@@ -1,0 +1,21 @@
+services:
+  coffeemongo:
+    image: mongo
+    restart: always
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=root
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  coffeeadminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8001:8080"
+
+volumes:
+  mongodata:

@@ -1,0 +1,36 @@
+## REST API Request for Coffee Mongo Project
+@host=localhost
+@port=3000
+@protocol=http
+@hostUri={{protocol}}://{{host}}:{{port}}/coffees
+@contentType=application/json
+
+### Get All Coffees
+GET {{hostUri}} HTTP/1.1
+
+### Get coffees with limit and page number
+GET {{hostUri}}/?page=0&limit=10 HTTP/1.1
+
+### Get Coffee by id
+GET {{hostUri}}/adsfsadfwererwe  HTTP/1.1
+
+### Create a new Coffee entry
+POST {{hostUri}} HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "name": "Kakuzi",
+  "brand": "Kakuzi limited edition",
+  "flavors": ["coconut", "mint", "white milkish"]
+}
+
+### UPDATE Coffee by id
+PATCH {{hostUri}}/adsfsadfwererwe  HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "brand": "Kakuzi Brown"
+}
+
+### DELETE Coffee by id
+DELETE {{hostUri}}/adsfsadfwererwe  HTTP/1.1
