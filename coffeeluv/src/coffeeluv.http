@@ -12,6 +12,7 @@ Authorization: Bearer {{nonProdToken}}
 
 ### Get all coffees via coffees rating module
 GET {{coffeeRatingURL}} HTTP/1.1
+Authorization: Bearer {{nonProdToken}}
 
 
 ### Get Paginated coffees Request/?offset=&limit=

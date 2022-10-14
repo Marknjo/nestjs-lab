@@ -5,6 +5,7 @@ import { randomBytes } from 'crypto';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ApiKeyGuard } from './common/guards/api-key.guard';
+import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
 
 async function bootstrap() {
   /// init App
@@ -21,6 +22,8 @@ async function bootstrap() {
 
   /// Add Exception filters
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  app.useGlobalInterceptors(new WrapResponseInterceptor());
 
   /// Swagger Setup
   const options = new DocumentBuilder()
