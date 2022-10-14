@@ -28,10 +28,8 @@ export class CoffeesController {
   }
 
   @Post()
-  create(@Body() content: CreateCoffeeDto) {
-    console.log(content);
-
-    return `Create a new coffee ${content}`;
+  create(@Body() newCoffee: CreateCoffeeDto) {
+    return this.coffeeService.create(newCoffee);
   }
 
   @Patch(':id')
