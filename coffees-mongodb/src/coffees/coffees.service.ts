@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { CoffeesPaginationDto } from './dtos/coffees-pagination.dto';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
@@ -52,5 +52,19 @@ export class CoffeesService {
     return foundCoffee;
   }
 
-  async remove() {}
+  async remove(id: string) {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException(`Invalid id: "${id}"`);
+    }
+
+    const foundCoffee = await this.coffeeModel.findByIdAndDelete(id);
+
+    if (!foundCoffee) {
+      throw new BadRequestException(
+        `Coffee with id: ${id} could not be deleted.`,
+      );
+    }
+
+    return { status: 'success', message: `Coffee with id: ${id} deleted` };
+  }
 }

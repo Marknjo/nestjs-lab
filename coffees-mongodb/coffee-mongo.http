@@ -33,4 +33,4 @@ Content-Type: {{contentType}}
 }
 
 ### DELETE Coffee by id
-DELETE {{hostUri}}/adsfsadfwererwe  HTTP/1.1
+DELETE {{hostUri}}/63492a10834915db6058d768  HTTP/1.1
