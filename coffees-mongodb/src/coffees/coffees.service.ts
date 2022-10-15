@@ -19,7 +19,9 @@ export class CoffeesService {
     return this.coffeeModel.find().skip(page).limit(limit);
   }
 
-  async findOne() {}
+  async findCoffeeById(id: string) {
+    return this.coffeeModel.findById(id);
+  }
 
   async create(content: CreateCoffeeDto) {
     const brandName = content.name;

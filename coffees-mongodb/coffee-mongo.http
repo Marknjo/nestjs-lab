@@ -12,7 +12,7 @@ GET {{hostUri}} HTTP/1.1
 GET {{hostUri}}/?page=0&limit=10 HTTP/1.1
 
 ### Get Coffee by id
-GET {{hostUri}}/adsfsadfwererwe  HTTP/1.1
+GET {{hostUri}}/63492a10834915db6058d768  HTTP/1.1
 
 ### Create a new Coffee entry
 POST {{hostUri}} HTTP/1.1
