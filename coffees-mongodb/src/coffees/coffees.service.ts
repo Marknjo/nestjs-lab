@@ -23,7 +23,13 @@ export class CoffeesService {
   async findCoffeeById(id: string) {
     this.isValidMongoId(id);
 
-    return this.coffeeModel.findById(id);
+    const foundCoffee = await this.coffeeModel.findById(id);
+
+    if (!foundCoffee) {
+      throw new BadRequestException(`Could not find coffee with the id: ${id}`);
+    }
+
+    return foundCoffee;
   }
 
   async create(content: CreateCoffeeDto) {
