@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CoffeesPaginationDto } from './dtos/coffees-pagination.dto';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
+import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 
 @Injectable()
@@ -39,7 +40,17 @@ export class CoffeesService {
     return createdCoffee;
   }
 
-  async update() {}
+  async update(id: string, updates: UpdateCoffeeDto) {
+    const foundCoffee = await this.coffeeModel.findByIdAndUpdate(id, updates, {
+      new: true,
+    });
+
+    if (!foundCoffee) {
+      throw new BadRequestException(`Coffee by id: ${id} was not updated.`);
+    }
+
+    return foundCoffee;
+  }
 
   async remove() {}
 }
