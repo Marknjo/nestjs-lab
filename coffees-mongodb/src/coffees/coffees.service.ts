@@ -21,6 +21,8 @@ export class CoffeesService {
   }
 
   async findCoffeeById(id: string) {
+    this.isValidMongoId(id);
+
     return this.coffeeModel.findById(id);
   }
 
@@ -41,6 +43,8 @@ export class CoffeesService {
   }
 
   async update(id: string, updates: UpdateCoffeeDto) {
+    this.isValidMongoId(id);
+
     const foundCoffee = await this.coffeeModel.findByIdAndUpdate(id, updates, {
       new: true,
     });
@@ -53,9 +57,7 @@ export class CoffeesService {
   }
 
   async remove(id: string) {
-    if (!isValidObjectId(id)) {
-      throw new BadRequestException(`Invalid id: "${id}"`);
-    }
+    this.isValidMongoId(id);
 
     const foundCoffee = await this.coffeeModel.findByIdAndDelete(id);
 
@@ -66,5 +68,11 @@ export class CoffeesService {
     }
 
     return { status: 'success', message: `Coffee with id: ${id} deleted` };
+  }
+
+  private isValidMongoId(id: string): void | Error {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException(`Invalid id: "${id}"`);
+    }
   }
 }
