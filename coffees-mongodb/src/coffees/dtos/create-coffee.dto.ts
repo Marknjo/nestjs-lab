@@ -1,4 +1,4 @@
-import { IsArray, IsString, MaxLength } from 'class-validator';
+import { IsArray, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateCoffeeDto {
   @MaxLength(40)
@@ -9,6 +9,7 @@ export class CreateCoffeeDto {
   @IsString()
   brand: string;
 
+  @IsOptional()
   @IsString({ each: true })
   @IsArray()
   flavors: Array<string>;
