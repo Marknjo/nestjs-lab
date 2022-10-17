@@ -25,12 +25,13 @@ Content-Type: {{contentType}}
 }
 
 ### UPDATE Coffee by id
-PATCH {{hostUri}}/63492a10834915db6058d768  HTTP/1.1
+PATCH {{hostUri}}/634d3b0fc00aae35b612a8c6  HTTP/1.1
 Content-Type: {{contentType}}
 
 {
-  "brand": "Kakuzi Brown Branded"
+  "brand": "Kakuzi Brown Branded",
+  "flavors": ["coconut", "mint", "white milkish","Cheery dark"]
 }
 
 ### DELETE Coffee by id
-DELETE {{hostUri}}/63492a10834915db6058d768  HTTP/1.1
+DELETE {{hostUri}}/634a6945f6651b7a159fb96f  HTTP/1.1

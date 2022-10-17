@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
+import { resolve } from 'path';
 import { CoffeesPaginationDto } from './dtos/coffees-pagination.dto';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
@@ -20,7 +21,7 @@ export class CoffeesService {
     const page = paginationOptions.page || 0;
     const limit = paginationOptions.limit || 10;
 
-    return this.coffeeModel.find().skip(page).limit(limit);
+    return this.coffeeModel.find().skip(page).limit(limit).populate('flavors');
   }
 
   async findCoffeeById(id: string) {
@@ -46,7 +47,20 @@ export class CoffeesService {
       );
     }
 
-    const createdCoffee = await this.coffeeModel.create(content);
+    /// Handle preload of flavors
+    let flavors: Flavor[] = [];
+    if (content.flavors?.length > 0) {
+      flavors = await Promise.all<Flavor>(
+        content.flavors.map((flavor) => this.preloadFlavors(flavor)),
+      );
+    }
+
+    flavors = flavors.length === 0 ? [] : flavors;
+
+    const createdCoffee = await this.coffeeModel.create({
+      ...content,
+      flavors,
+    });
 
     return createdCoffee;
   }
@@ -54,9 +68,22 @@ export class CoffeesService {
   async update(id: string, updates: UpdateCoffeeDto) {
     this.isValidMongoId(id);
 
-    const foundCoffee = await this.coffeeModel.findByIdAndUpdate(id, updates, {
-      new: true,
-    });
+    /// Handle preload of flavors
+    let flavors: Flavor[] = [];
+    if (updates.flavors?.length > 0) {
+      flavors = await Promise.all<Flavor>(
+        updates.flavors.map((flavor) => this.preloadFlavors(flavor)),
+      );
+    }
+    flavors = flavors.length === 0 ? [] : flavors;
+
+    const foundCoffee = await this.coffeeModel.findByIdAndUpdate(
+      id,
+      { ...updates, ...(flavors.length > 0 ? { flavors } : {}) },
+      {
+        new: true,
+      },
+    );
 
     if (!foundCoffee) {
       throw new BadRequestException(`Coffee by id: ${id} was not updated.`);
@@ -83,5 +110,22 @@ export class CoffeesService {
     if (!isValidObjectId(id)) {
       throw new BadRequestException(`Invalid id: "${id}"`);
     }
+  }
+
+  // private async preloadFlavors(flavorName: string, id?: string) {
+  private async preloadFlavors(flavorName: string): Promise<Flavor> {
+    const foundFlavor = await this.flavorModel.findOne({ name: flavorName });
+
+    if (foundFlavor) {
+      return foundFlavor;
+    }
+
+    const createdFlavor = this.flavorModel.create({
+      name: flavorName,
+      //coffee: [id, ...foundFlavor.coffees],
+    });
+    console.table({ createdFlavor });
+
+    return createdFlavor;
   }
 }
