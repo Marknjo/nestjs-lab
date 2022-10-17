@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Coffee, CoffeeSchema } from './entities/coffee.entity';
 import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
+import { Flavor, flavorSchema } from './entities/flavor.entity';
 
 @Module({
   imports: [
@@ -11,6 +12,10 @@ import { CoffeesService } from './coffees.service';
         {
           name: Coffee.name,
           schema: CoffeeSchema,
+        },
+        {
+          name: Flavor.name,
+          schema: flavorSchema,
         },
       ],
       'coffees',

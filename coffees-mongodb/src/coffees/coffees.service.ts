@@ -5,12 +5,15 @@ import { CoffeesPaginationDto } from './dtos/coffees-pagination.dto';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
+import { Flavor } from './entities/flavor.entity';
 
 @Injectable()
 export class CoffeesService {
   constructor(
     @InjectModel(Coffee.name, 'coffees')
     private readonly coffeeModel: Model<Coffee>,
+    @InjectModel(Flavor.name, 'coffees')
+    private readonly flavorModel: Model<Flavor>,
   ) {}
 
   findAll(paginationOptions: CoffeesPaginationDto) {
