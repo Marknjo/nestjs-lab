@@ -48,14 +48,7 @@ export class CoffeesService {
     }
 
     /// Handle preload of flavors
-    let flavors: Flavor[] = [];
-    if (content.flavors?.length > 0) {
-      flavors = await Promise.all<Flavor>(
-        content.flavors.map((flavor) => this.preloadFlavors(flavor)),
-      );
-    }
-
-    flavors = flavors.length === 0 ? [] : flavors;
+    const flavors = await this.getFlavorsBeforeSave(content);
 
     const createdCoffee = await this.coffeeModel.create({
       ...content,
@@ -69,13 +62,7 @@ export class CoffeesService {
     this.isValidMongoId(id);
 
     /// Handle preload of flavors
-    let flavors: Flavor[] = [];
-    if (updates.flavors?.length > 0) {
-      flavors = await Promise.all<Flavor>(
-        updates.flavors.map((flavor) => this.preloadFlavors(flavor)),
-      );
-    }
-    flavors = flavors.length === 0 ? [] : flavors;
+    const flavors = await this.getFlavorsBeforeSave(updates);
 
     const foundCoffee = await this.coffeeModel.findByIdAndUpdate(
       id,
@@ -127,5 +114,19 @@ export class CoffeesService {
     console.table({ createdFlavor });
 
     return createdFlavor;
+  }
+
+  private async getFlavorsBeforeSave(
+    content: CreateCoffeeDto | UpdateCoffeeDto,
+  ) {
+    let flavors: Flavor[] = [];
+    if (content.flavors?.length > 0) {
+      flavors = await Promise.all<Flavor>(
+        content.flavors.map((flavor) => this.preloadFlavors(flavor)),
+      );
+    }
+    flavors = flavors.length === 0 ? [] : flavors;
+
+    return flavors;
   }
 }
