@@ -36,4 +36,4 @@ Content-Type: {{contentType}}
 }
 
 ### Delete Coffee
-DELETE {{coffeeApiUrl}}/asfasfasdfasf HTTP/1.1
+DELETE {{coffeeApiUrl}}/asfasfasdfasf/delete HTTP/1.1
