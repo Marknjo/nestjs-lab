@@ -1,0 +1,30 @@
+services:
+  pg-dev-db:
+    image: postgres
+    container_name: postgres-coffees-dev
+    restart: always
+    env_file:
+      - ./.envs/docker.dev.env
+    ports:
+      - 8080:8080
+    volumes:
+      - postgres-db-data:/var/lib/postgresql/data
+
+  pg-test-db:
+    image: postgres
+    container_name: postgres-coffees-test
+    restart: always
+    env_file:
+      - ./.envs/docker.test.env
+    ports:
+      - 8081:8080
+
+  pg-adminer:
+    image: adminer
+    container_name: pg-coffees-adminer
+    restart: always
+    ports:
+      - 8000:8080
+
+volumes:
+  postgres-db-data:
