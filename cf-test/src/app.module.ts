@@ -2,14 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeesModule } from './coffees/coffees.module';
-import { validationSchema } from './common/configs/envValidationsSchema';
+import { confOptions } from './common/configs/globalEnvConfigOptions';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: './.envs/stage.dev.env',
-      validationSchema: validationSchema,
-    }),
+    ConfigModule.forRoot(confOptions),
     CoffeesModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
