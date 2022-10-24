@@ -10,7 +10,10 @@ export class CoffeesService {
     private readonly coffeeRepo: Repository<Coffee>,
   ) {}
 
-  findAll() {
-    return this.coffeeRepo.find();
+  findAll(skip: number, take: number) {
+    return this.coffeeRepo.find({
+      take,
+      skip,
+    });
   }
 }

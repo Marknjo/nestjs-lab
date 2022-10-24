@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { CoffeesPaginationDto } from 'src/common/dtos/coffees-pagination.dto';
 import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
@@ -35,12 +36,12 @@ export class CoffeesController {
 
   @Get()
   // findAll(@Query() filters: PaginationFilters) {
-  findAll(@Query() filters: any) {
-    let { limit, page } = filters;
+  findAll(@Query() paginationOptions: CoffeesPaginationDto) {
+    let { limit, page } = paginationOptions;
     limit = limit || 10;
     page = page || 0;
 
-    return this.coffeeService.findAll();
+    return this.coffeeService.findAll(page, limit);
   }
 
   @Post('/create')

@@ -14,7 +14,7 @@ GET {{coffeeApiUrl}}/health HTTP/1.1
 GET {{coffeeApiUrl}} HTTP/1.1
 
 ### Filter Get Request
-GET {{coffeeApiUrl}}/?limit=10&page=0 HTTP/1.1
+GET {{coffeeApiUrl}}/?limit=10&page=1 HTTP/1.1
 
 ### Create Coffee Entry
 POST {{coffeeApiUrl}}/create HTTP/1.1
