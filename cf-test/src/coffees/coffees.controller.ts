@@ -8,9 +8,12 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeeService: CoffeesService) {}
+
   @Get('/health')
   healthCheck() {
     return `
@@ -37,7 +40,7 @@ export class CoffeesController {
     limit = limit || 10;
     page = page || 0;
 
-    return 'This resource returns all coffees';
+    return this.coffeeService.findAll();
   }
 
   @Post('/create')
