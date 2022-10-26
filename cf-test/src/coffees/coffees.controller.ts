@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CoffeesPaginationDto } from 'src/common/dtos/coffees-pagination.dto';
 import { CoffeesService } from './coffees.service';
+import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -45,8 +46,8 @@ export class CoffeesController {
   }
 
   @Post('/create')
-  create(@Body() coffeeContent: any) {
-    return 'This resource creates a new coffee content';
+  create(@Body() coffeeContent: CreateCoffeeDto) {
+    return this.coffeeService.create(coffeeContent);
   }
 
   @Patch('/:id/update')
