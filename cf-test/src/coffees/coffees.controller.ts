@@ -55,9 +55,9 @@ export class CoffeesController {
     return this.coffeeService.create(coffeeContent);
   }
 
-  @Patch('/:id/update')
-  update(@Param() id: string, @Body() updates: any) {
-    return 'This resource updates coffee entry by id';
+  @Patch('/:coffeeId/update')
+  update(@Param('coffeeId') coffeeId: string, @Body() updates: any) {
+    return this.coffeeService.update(coffeeId, updates);
   }
 
   @Delete('/:id/delete')

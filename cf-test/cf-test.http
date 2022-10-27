@@ -31,7 +31,7 @@ Content-Type: {{contentType}}
 }
 
 ### Update Coffee Entry
-PATCH  {{coffeeApiUrl}}/asdlkasdal/update HTTP/1.1
+PATCH  {{coffeeApiUrl}}/391b9bc1-e083-44c3-ba17-1c7e6de67a10/update HTTP/1.1
 Content-Type: {{contentType}}
 
 {

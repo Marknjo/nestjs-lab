@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { isUUID } from 'class-validator';
 import { Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
+import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 
 @Injectable()
@@ -43,10 +44,25 @@ export class CoffeesService {
   }
 
   /// update
+  async update(id: string, updateData: UpdateCoffeeDto) {
+    this.isValidUUId(id);
+
+    const updateCoffee = await this.coffeeRepo.preload({
+      id,
+      ...updateData,
+    });
+
+    if (!updateCoffee) {
+      throw new BadRequestException(`Could not update coffee with id: ${id}`);
+    }
+
+    return this.coffeeRepo.save(updateCoffee);
+  }
+
   /// delete or remove
 
   /// PRIVATE METHODS
-  isValidUUId(id: string) {
+  private isValidUUId(id: string) {
     const checkResults = isUUID(id, '4');
 
     if (!checkResults) {
