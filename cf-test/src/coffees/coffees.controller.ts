@@ -45,6 +45,11 @@ export class CoffeesController {
     return this.coffeeService.findAll(page, limit);
   }
 
+  @Get('/:coffeeId')
+  findOne(@Param('coffeeId') coffeeId: string) {
+    return this.coffeeService.findOne(coffeeId);
+  }
+
   @Post('/create')
   create(@Body() coffeeContent: CreateCoffeeDto) {
     return this.coffeeService.create(coffeeContent);
