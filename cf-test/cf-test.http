@@ -14,7 +14,7 @@ GET {{coffeeApiUrl}}/health HTTP/1.1
 GET {{coffeeApiUrl}} HTTP/1.1
 
 ### Filter Get Request
-GET {{coffeeApiUrl}}/?limit=10&page=1 HTTP/1.1
+GET {{coffeeApiUrl}}/?limit=10&page=0 HTTP/1.1
 
 ### GET Coffee by id 
 GET {{coffeeApiUrl}}/391b9bc1-e083-44c3-ba17-1c7e6de67a10 HTTP/1.1

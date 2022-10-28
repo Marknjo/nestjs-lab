@@ -1,10 +1,11 @@
-import { IsNumber, IsOptional, IsPositive } from 'class-validator';
+import { Allow, IsNumber, IsOptional, IsPositive, Min } from 'class-validator';
 
 export class CoffeesPaginationDto {
-  @IsPositive()
+  @Min(0)
   @IsOptional()
   page: number;
 
+  @Min(1)
   @IsPositive()
   @IsOptional()
   limit: number;
