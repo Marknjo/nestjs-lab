@@ -60,8 +60,8 @@ export class CoffeesController {
     return this.coffeeService.update(coffeeId, updates);
   }
 
-  @Delete('/:id/delete')
-  remove(@Param() id: string) {
-    return 'This resource deletes coffee by id';
+  @Delete('/:coffeeId/delete')
+  remove(@Param('coffeeId') coffeeId: string) {
+    return this.coffeeService.remove(coffeeId);
   }
 }

@@ -25,11 +25,12 @@ export class CoffeesService {
     this.isValidUUId(id);
 
     const foundCoffee = await this.coffeeRepo.findOneBy({ id });
+    console.log('Coffee...');
 
     if (!foundCoffee) {
       return {
         status: 'failed',
-        message: `Could not the coffee option you are looking. Try again!`,
+        message: `Could not find the coffee with id: ${id}. Try again!`,
       };
     }
 
@@ -60,6 +61,22 @@ export class CoffeesService {
   }
 
   /// delete or remove
+  async remove(id: string) {
+    const foundCoffee = await this.findOne(id);
+
+    if (!(foundCoffee instanceof Coffee)) {
+      return {
+        ...foundCoffee,
+        message: `Could not delete the coffee with id: ${id}. Try again!`,
+      };
+    }
+
+    await this.coffeeRepo.delete(id);
+    return {
+      status: 'success',
+      message: `Coffee deleted 🚮 successfully`,
+    };
+  }
 
   /// PRIVATE METHODS
   private isValidUUId(id: string) {
