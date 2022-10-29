@@ -40,4 +40,4 @@ Content-Type: {{contentType}}
 }
 
 ### Delete Coffee
-DELETE {{coffeeApiUrl}}/5881729a-2be9-4d11-8ce2-1aae148d73c3/delete HTTP/1.1
+DELETE {{coffeeApiUrl}}/47f3fc0f-76fb-4659-8ee5-925546c3160e/delete HTTP/1.1

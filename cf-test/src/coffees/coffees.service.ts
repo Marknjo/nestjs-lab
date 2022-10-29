@@ -25,7 +25,6 @@ export class CoffeesService {
     this.isValidUUId(id);
 
     const foundCoffee = await this.coffeeRepo.findOneBy({ id });
-    console.log('Coffee...');
 
     if (!foundCoffee) {
       return {
