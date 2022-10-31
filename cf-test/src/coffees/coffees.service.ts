@@ -5,18 +5,22 @@ import { Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
+import { Flavor } from './entities/flavor.entity';
 
 @Injectable()
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
     private readonly coffeeRepo: Repository<Coffee>,
+    @InjectRepository(Flavor)
+    private readonly flavorRepo: Repository<Flavor>,
   ) {}
 
   findAll(skip: number, take: number) {
     return this.coffeeRepo.find({
       take,
       skip,
+      relations: ['flavors'],
     });
   }
 
@@ -24,7 +28,10 @@ export class CoffeesService {
   async findOne(id: string) {
     this.isValidUUId(id);
 
-    const foundCoffee = await this.coffeeRepo.findOneBy({ id });
+    const foundCoffee = await this.coffeeRepo.findOne({
+      where: { id },
+      relations: ['flavors'],
+    });
 
     if (!foundCoffee) {
       return {
@@ -38,18 +45,38 @@ export class CoffeesService {
 
   /// Create
   async create(addData: CreateCoffeeDto) {
-    const createdData = this.coffeeRepo.create(addData);
+    const flavors = await Promise.all(
+      addData.flavors.map(async (flavor) => this.preloadCoffeeFlavors(flavor)),
+    );
 
-    return this.coffeeRepo.save(createdData);
+    console.table(flavors);
+
+    const createdData = this.coffeeRepo.create({
+      ...addData,
+      flavors,
+    });
+
+    const newCoffee = await this.coffeeRepo.save(createdData);
+
+    /// add new flavor entries
+
+    return newCoffee;
   }
 
   /// update
   async update(id: string, updateData: UpdateCoffeeDto) {
     this.isValidUUId(id);
 
+    const flavors = await Promise.all(
+      updateData.flavors.map(async (flavor) =>
+        this.preloadCoffeeFlavors(flavor),
+      ),
+    );
+
     const updateCoffee = await this.coffeeRepo.preload({
       id,
       ...updateData,
+      flavors,
     });
 
     if (!updateCoffee) {
@@ -78,6 +105,18 @@ export class CoffeesService {
   }
 
   /// PRIVATE METHODS
+  private async preloadCoffeeFlavors(flavorName: string) {
+    const foundFlavor = await this.flavorRepo.findOneBy({ name: flavorName });
+
+    if (foundFlavor) {
+      return foundFlavor;
+    }
+
+    return this.flavorRepo.create({
+      name: flavorName,
+    });
+  }
+
   private isValidUUId(id: string) {
     const checkResults = isUUID(id, '4');
 
