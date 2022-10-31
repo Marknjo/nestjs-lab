@@ -45,11 +45,7 @@ export class CoffeesService {
 
   /// Create
   async create(addData: CreateCoffeeDto) {
-    const flavors = await Promise.all(
-      addData.flavors.map(async (flavor) => this.preloadCoffeeFlavors(flavor)),
-    );
-
-    console.table(flavors);
+    const flavors = await this.mapFlavors<CreateCoffeeDto>(addData);
 
     const createdData = this.coffeeRepo.create({
       ...addData,
@@ -67,12 +63,7 @@ export class CoffeesService {
   async update(id: string, updateData: UpdateCoffeeDto) {
     this.isValidUUId(id);
 
-    const flavors = await Promise.all(
-      updateData.flavors.map(async (flavor) =>
-        this.preloadCoffeeFlavors(flavor),
-      ),
-    );
-
+    const flavors = await this.mapFlavors(updateData);
     const updateCoffee = await this.coffeeRepo.preload({
       id,
       ...updateData,
@@ -105,6 +96,14 @@ export class CoffeesService {
   }
 
   /// PRIVATE METHODS
+  private async mapFlavors<T extends UpdateCoffeeDto>(data: T) {
+    const flavors = await Promise.all(
+      data.flavors.map(async (flavor) => this.preloadCoffeeFlavors(flavor)),
+    );
+
+    return flavors;
+  }
+
   private async preloadCoffeeFlavors(flavorName: string) {
     const foundFlavor = await this.flavorRepo.findOneBy({ name: flavorName });
 
