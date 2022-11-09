@@ -1,6 +1,9 @@
 # compiled output
 dist
 node_modules
+build
+.cache
+.vscode
 
 # Logs
 logs
@@ -37,3 +40,4 @@ lerna-debug.log*
 ## Ignmore env files
 *.env
 .env.*
+/**/*.env
