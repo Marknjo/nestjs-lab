@@ -13,7 +13,7 @@ export abstract class IQuery {
 }
 
 export class Coffee {
-    id: string;
+    id: number;
     name: string;
     brand: string;
     flavors: string[];
