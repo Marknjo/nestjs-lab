@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { envLoaderOptions } from './common/configs/env-loader-options';
+import { CoffeesModule } from './coffees/coffees.module';
 
 @Module({
   imports: [
@@ -29,6 +30,8 @@ import { envLoaderOptions } from './common/configs/env-loader-options';
       driver: ApolloDriver,
       typePaths: ['./**/*.graphql'],
     }),
+
+    CoffeesModule,
   ],
   controllers: [],
   providers: [],
