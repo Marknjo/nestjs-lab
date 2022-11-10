@@ -6,7 +6,7 @@ const definationsFactory = new GraphQLDefinitionsFactory();
 
 definationsFactory.generate({
   typePaths: ['./**/*.graphql'],
-  path: join(cwd(), 'src/graphql.ts'),
+  path: join(cwd(), 'src/graphql-types.ts'),
   outputAs: 'class',
   watch: true,
   skipResolverArgs: true,
